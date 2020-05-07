@@ -1,10 +1,12 @@
 # cloud-lab
 
+This is a simple script to manage a Machine Learning EC2 instance
+
 ## Setup
 
 ### 1. Edit the file cloud-lab.sh and change: 
 
-ec2_id="your-instanc-eid"
+ec2_id="your-instance-id"
 
 key_pem="path-to-your-instance-key-pem"
 
