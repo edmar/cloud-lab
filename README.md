@@ -2,12 +2,28 @@
 
 ## Setup
 
-Edit the file cloud-lab.sh and change 
+### 1. Edit the file cloud-lab.sh and change: 
 
 ec2_id="your-instanc-eid"
 
 key_pem="path-to-your-instance-key-pem"
 
+### 2. Make script executable
+
+$ chmod +x cloud-lab/cloud-labh.sh
+
+### Optional: Add script to path
+
+Modify your path to add the directory where your script is located:
+
+export PATH=$PATH:/appropriate/directory
+
+(typically, you want $HOME/bin for storing your own scripts)
+
+### Optional: Create alias to script
+Add to your .bashrc or .zhsrc
+
+alias cloud-lab="lab.sh"
 
 ## Usage
 
