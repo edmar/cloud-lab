@@ -5,6 +5,7 @@
 Edit the file cloud-lab.sh and change 
 
 ec2_id="your-instanc-eid"
+
 key_pem="path-to-your-instance-key-pem"
 
 
