@@ -10,7 +10,7 @@ key_pem="path-to-your-instance-key-pem"
 
 ### 2. Make script executable
 
-$ chmod +x cloud-lab/cloud-labh.sh
+> $ chmod +x cloud-lab/cloud-labh.sh
 
 ### Optional: Add script to path
 
@@ -29,34 +29,34 @@ alias cloud-lab="lab.sh"
 
 ### Starts instance and log into it when it's ready
 
-$ lab start
+> $ lab start
 
 ### Create a ssh tunnel on that port
 
-$ lab tunnel 8888
+> $ lab tunnel 8888
 
 ### Stop instance
 
-$ lab stop
+> $ lab stop
 
 ### Show instance status
 
-$ lab status
+> $ lab status
 
 ### SSH into instance
 
-$ lab login
+> $ lab login
 
 ### Download file from instance
 
-$ lab download  /machine-file-path  /path-where-to-save-file
+> $ lab download  /machine-file-path  /path-where-to-save-file
 
 ### Upload file to instance
 
-$ lab upload /local-file-path /machine-path-to-save-file
+> $ lab upload /local-file-path /machine-path-to-save-file
 
 ### Change instance type
 
 The machine needs to be stopped before changing instance type
 
-$ lab update instance_type_name
+> $ lab update instance_type_name
