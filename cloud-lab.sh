@@ -1,8 +1,7 @@
 #!/bin/zsh
 
 # Configuration Valriables
-
-ec2_id="i-xxxxxxxxxxxxx"
+ec2_id="i-xxxxxxxxax"
 key_pem="~/.ssh/lab.pem"
 
 
@@ -28,6 +27,12 @@ connect() {
     ssh -i $key_pem -o 'ConnectionAttempts 5'  ubuntu@$elastic_ip
 }
 
+notebook() {
+    elastic_ip=$(aws ec2 describe-instances --instance-ids $ec2_id --query 'Reservations[0].Instances[0].PublicIpAddress' | cut -d'"' -f2)
+    echo -e "Connecting to IP: $elastic_ip" 
+    ssh -i $key_pem ubuntu@$elastic_ip jupyter lab --no-browser --port=8889 & 
+}
+
 upload() {
    elastic_ip=$(aws ec2 describe-instances --instance-ids $ec2_id --query 'Reservations[0].Instances[0].PublicIpAddress' | cut -d'"' -f2)
    scp -i $key_pem $1 ubuntu@$elastic_ip:$2
@@ -46,7 +51,7 @@ start(){
 tunnel(){
     elastic_ip=$(aws ec2 describe-instances --instance-ids $ec2_id --query 'Reservations[0].Instances[0].PublicIpAddress' | cut -d'"' -f2)
     echo -e "Creating SSH tunnel to IP: $elastic_ip" 
-    ssh -i $key_pem -N -f -L ${port}:localhost:$port ubuntu@$elastic_ip
+    ssh -i $key_pem -N -f -L ${1}:localhost:$1 ubuntu@$elastic_ip
 }
 
 login() {
@@ -55,6 +60,19 @@ login() {
         if [[ $state == *"running"* ]]; then 
             sleep 1
             connect
+            break 
+        fi        
+        sleep 1
+        echo -n '.'
+    done
+}
+
+server() {
+    while true; do
+        state=$(aws ec2 describe-instances --instance-ids $ec2_id --query 'Reservations[0].Instances[0].State')
+        if [[ $state == *"running"* ]]; then 
+            sleep 1
+            notebook 
             break 
         fi        
         sleep 1
@@ -77,10 +95,16 @@ then
     login
 fi
 
+if [ $1 = "jupyter" ]
+then 
+   start
+   server 
+   tunnel 8889
+fi
+
 if [ $1 = "tunnel" ]
 then
-    port=$2
-    tunnel 
+    tunnel $2 
 fi
 
 if [ $1 = "upload" ]
