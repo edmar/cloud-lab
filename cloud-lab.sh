@@ -2,7 +2,7 @@
 
 # Configuration Valriables
 
-ec2_id="i-05395d6174e31f424"
+ec2_id="i-xxxxxxxxxxxxx"
 key_pem="~/.ssh/lab.pem"
 
 
